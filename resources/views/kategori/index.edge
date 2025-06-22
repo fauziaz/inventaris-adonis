@@ -1,0 +1,36 @@
+@layout('layouts/main')
+
+@section('title')
+  Data Kategori
+@endsection
+
+@section('content')
+  <h1 class="mb-4">Data Kategori</h1>
+  <a href="{{ route('kategori.create') }}" class="btn btn-primary mb-3">Tambah Kategori</a>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nama Kategori</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(kategori in kategoris)
+        <tr>
+          <td>{{ kategori.id }}</td>
+          <td>{{ kategori.nama_kategori }}</td>
+          <td>
+            <a href="{{ route('kategori.edit', { id: kategori.id }) }}" class="btn btn-sm btn-warning">Edit</a>
+            <form action="{{ route('kategori.destroy', { id: kategori.id }) }}" method="POST" class="d-inline">
+              @csrf()
+              @method('DELETE')
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Hapus kategori ini?')">Hapus</button>
+            </form>
+          </td>
+        </tr>
+      @endeach
+    </tbody>
+  </table>
+@endsection

@@ -1,0 +1,47 @@
+@layout('layouts/main')
+
+@section('title')
+  Data Penghapusan
+@endsection
+
+@section('content')
+  <h1 class="mb-4">Data Penghapusan</h1>
+
+  @if(flash.notification)
+    <div class="alert alert-{{ flash.notification.type }}">
+      {{ flash.notification.message }}
+    </div>
+  @endif
+
+  <form action="{{ route('penghapusan.store') }}" method="POST" class="mb-3">
+    @csrf()
+    <button type="submit" class="btn btn-primary">Tambah Penghapusan</button>
+  </form>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Dibuat Pada</th>
+        <th>Terakhir Diubah</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(item in penghapusans)
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.createdAt.toFormat('yyyy-MM-dd HH:mm') }}</td>
+          <td>{{ item.updatedAt.toFormat('yyyy-MM-dd HH:mm') }}</td>
+          <td>
+            <form action="{{ route('penghapusan.destroy', { id: item.id }) }}" method="POST" class="d-inline">
+              @csrf()
+              @method('DELETE')
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus data ini?')">Hapus</button>
+            </form>
+          </td>
+        </tr>
+      @endeach
+    </tbody>
+  </table>
+@endsection

@@ -1,0 +1,37 @@
+@layout('layouts/main')
+
+@section('title')
+  Edit Riwayat Mutasi
+@endsection
+
+@section('content')
+  <h1 class="mb-4">Edit Riwayat Mutasi</h1>
+
+  <form action="{{ route('riwayat-mutasi.update', { id: mutasi.id }) }}" method="POST">
+    @csrf()
+    @method('PUT')
+
+    <div class="mb-3">
+      <label class="form-label">ID Barang</label>
+      <input type="number" class="form-control" name="barangId" value="{{ mutasi.barangId }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Lokasi Asal</label>
+      <input type="text" class="form-control" name="lokasiAsalId" value="{{ mutasi.lokasiAsalId }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Lokasi Tujuan</label>
+      <input type="text" class="form-control" name="lokasiTujuanId" value="{{ mutasi.lokasiTujuanId }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Jumlah</label>
+      <input type="number" class="form-control" name="jumlah" value="{{ mutasi.jumlah }}" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Perbarui</button>
+    <a href="{{ route('riwayat-mutasi.index') }}" class="btn btn-secondary">Kembali</a>
+  </form>
+@endsection

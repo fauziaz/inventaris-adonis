@@ -1,0 +1,27 @@
+@layout('layouts/main')
+
+@section('title')
+  Edit Lokasi
+@endsection
+
+@section('content')
+  <h1 class="mb-4">Edit Lokasi</h1>
+
+  <form action="{{ route('lokasis.update', { id: lokasi.id }) }}" method="POST">
+    @csrf()
+    @method('PUT')
+
+    <div class="mb-3">
+      <label for="nama_lokasi" class="form-label">Nama Lokasi</label>
+      <input type="text" class="form-control" name="nama_lokasi" value="{{ lokasi.nama_lokasi }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="gedung" class="form-label">Gedung</label>
+      <input type="text" class="form-control" name="gedung" value="{{ lokasi.gedung }}" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Simpan</button>
+    <a href="{{ route('lokasis.index') }}" class="btn btn-secondary">Kembali</a>
+  </form>
+@endsection

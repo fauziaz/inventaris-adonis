@@ -1,0 +1,45 @@
+@layout('layouts/main')
+
+@section('title')
+  Data Lokasi
+@endsection
+
+@section('content')
+  <h1 class="mb-4">Data Lokasi</h1>
+
+  @if(flash.notification)
+    <div class="alert alert-{{ flash.notification.type }}">
+      {{ flash.notification.message }}
+    </div>
+  @endif
+
+  <a href="{{ route('lokasis.create') }}" class="btn btn-primary mb-3">Tambah Lokasi</a>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nama Lokasi</th>
+        <th>Gedung</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(lokasi in lokasis)
+        <tr>
+          <td>{{ lokasi.id }}</td>
+          <td>{{ lokasi.nama_lokasi }}</td>
+          <td>{{ lokasi.gedung }}</td>
+          <td>
+            <a href="{{ route('lokasis.edit', { id: lokasi.id }) }}" class="btn btn-sm btn-warning">Edit</a>
+            <form action="{{ route('lokasis.destroy', { id: lokasi.id }) }}" method="POST" class="d-inline">
+              @csrf()
+              @method('DELETE')
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Hapus lokasi ini?')">Hapus</button>
+            </form>
+          </td>
+        </tr>
+      @endeach
+    </tbody>
+  </table>
+@endsection

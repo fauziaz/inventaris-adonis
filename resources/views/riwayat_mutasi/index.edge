@@ -1,0 +1,39 @@
+@layout('layouts/main')
+
+@section('title')
+  Riwayat Mutasi
+@endsection
+
+@section('content')
+  <h1 class="mb-4">Riwayat Mutasi</h1>
+  <a href="{{ route('riwayat-mutasi.create') }}" class="btn btn-primary mb-3">Tambah Mutasi</a>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Barang</th>
+        <th>Asal</th>
+        <th>Tujuan</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(mutasi in riwayats)
+        <tr>
+          <td>{{ mutasi.id }}</td>
+          <td>{{ mutasi.barangId }}</td>
+          <td>{{ mutasi.lokasiAsalId }}</td>
+          <td>{{ mutasi.lokasiTujuanId }}</td>
+          <td>
+            <a href="{{ route('riwayat-mutasi.edit', { id: mutasi.id }) }}" class="btn btn-sm btn-warning">Edit</a>
+            <form action="{{ route('riwayat-mutasi.destroy', { id: mutasi.id }) }}" method="POST" class="d-inline">
+              @csrf()
+              @method('DELETE')
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Hapus data ini?')">Hapus</button>
+            </form>
+          </td>
+        </tr>
+      @endeach
+    </tbody>
+  </table>
+@endsection
